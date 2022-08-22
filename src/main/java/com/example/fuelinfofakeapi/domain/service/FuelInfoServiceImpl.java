@@ -11,11 +11,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class FuelInfoServiceImpl implements FuelInfoService {
 
-    private final Double airlinePricePerKm = 18.8d;
-    private final Double railwayPricePerKm = 0.6d;
-    private final Double busPricePerKm = 0.28d;
-    private final Double carPricePerKm = 0.59d;
-
+    public final static Double airlinePricePerKm = 18.8d;
+    public final static Double railwayPricePerKm = 0.6d;
+    public final static Double busPricePerKm = 0.28d;
+    public final static Double carPricePerKm = 0.59d;
 
     @Override
     public Either<Error, FuelInfoResponse> getFuelInfo(FuelInfoRequest fuelInfoRequest) {
@@ -24,10 +23,10 @@ public class FuelInfoServiceImpl implements FuelInfoService {
                             .builder()
                             .from(fuelInfoRequest.getFrom())
                             .to(fuelInfoRequest.getTo())
-                            .airlinePrice(fuelInfoRequest.getAirDistance() * (this.airlinePricePerKm / 1000))
-                            .busPrice(fuelInfoRequest.getHighwayDistance() * (this.busPricePerKm / 1000))
-                            .carPrice(fuelInfoRequest.getHighwayDistance() * (this.carPricePerKm / 1000))
-                            .railwayPrice(fuelInfoRequest.getRailwayDistance() * (this.railwayPricePerKm / 1000))
+                            .airlinePrice(fuelInfoRequest.getAirDistance() * (airlinePricePerKm / 1000))
+                            .busPrice(fuelInfoRequest.getHighwayDistance() * (busPricePerKm / 1000))
+                            .carPrice(fuelInfoRequest.getHighwayDistance() * (carPricePerKm / 1000))
+                            .railwayPrice(fuelInfoRequest.getRailwayDistance() * (railwayPricePerKm / 1000))
                             .build();
                 }).toEither()
                 .mapLeft(throwable -> {
