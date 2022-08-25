@@ -7,9 +7,7 @@ import com.example.fuelinfofakeapi.domain.service.FuelInfoService;
 import io.vavr.control.Either;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class FuelInfoController {
@@ -20,8 +18,8 @@ public class FuelInfoController {
         this.fuelInfoService = fuelInfoService;
     }
 
-    @GetMapping("/fuelInfo")
-    ResponseEntity<?> getFuelInfo(@RequestParam FuelInfoRequest fuelInfoRequest){
+    @PostMapping("/fuelInfo")
+    ResponseEntity<?> getFuelInfo(@RequestBody FuelInfoRequest fuelInfoRequest){
         Either<Error, FuelInfoResponse> response = fuelInfoService.getFuelInfo(fuelInfoRequest);
 
         if(response.isLeft()){
